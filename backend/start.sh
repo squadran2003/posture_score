@@ -12,5 +12,13 @@ python manage.py migrate --noinput || {
     python manage.py migrate --noinput
 }
 
+# Create superuser from env vars (defaults: admin/admin)
+export DJANGO_SUPERUSER_USERNAME="${DJANGO_SUPERUSER_USERNAME:-admin}"
+export DJANGO_SUPERUSER_EMAIL="${DJANGO_SUPERUSER_EMAIL:-admin@example.com}"
+export DJANGO_SUPERUSER_PASSWORD="${DJANGO_SUPERUSER_PASSWORD:-admin}"
+
+echo "Ensuring superuser '${DJANGO_SUPERUSER_USERNAME}' exists..."
+python manage.py createsuperuser --noinput 2>/dev/null || echo "Superuser already exists."
+
 echo "Starting Daphne on 0.0.0.0:${PORT:-8000}..."
 exec daphne -b 0.0.0.0 -p ${PORT:-8000} posture_project.asgi:application
