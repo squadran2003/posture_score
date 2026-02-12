@@ -18,7 +18,16 @@ export DJANGO_SUPERUSER_EMAIL="${DJANGO_SUPERUSER_EMAIL:-admin@example.com}"
 export DJANGO_SUPERUSER_PASSWORD="${DJANGO_SUPERUSER_PASSWORD:-admin}"
 
 echo "Ensuring superuser '${DJANGO_SUPERUSER_USERNAME}' exists..."
-python manage.py createsuperuser --noinput 2>/dev/null || echo "Superuser already exists."
+python manage.py createsuperuser --noinput 2>/dev/null || true
+python manage.py shell -c "
+from django.contrib.auth import get_user_model
+import os
+User = get_user_model()
+u = User.objects.get(username=os.environ['DJANGO_SUPERUSER_USERNAME'])
+u.set_password(os.environ['DJANGO_SUPERUSER_PASSWORD'])
+u.save()
+print('Superuser password updated.')
+"
 
 echo "Starting Daphne on 0.0.0.0:${PORT:-8000}..."
 exec daphne -b 0.0.0.0 -p ${PORT:-8000} posture_project.asgi:application
