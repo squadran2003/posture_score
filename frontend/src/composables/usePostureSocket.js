@@ -21,7 +21,7 @@ export function usePostureSocket() {
     }
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-    const host = 'localhost:8000'
+    const host = import.meta.env.VITE_WS_URL || 'localhost:8000'
     const url = `${protocol}//${host}/ws/posture/analyze/?token=${token}`
 
     ws.value = new WebSocket(url)

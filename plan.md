@@ -130,9 +130,22 @@ Uses **MediaPipe Pose** landmarks from a frontal webcam view. Four component sco
 
 **Score ranges:** 85-100 Excellent (green), 70-84 Good, 55-69 Fair (amber), 40-54 Needs Work (orange), 0-39 Poor (red)
 
-**Calibration:** 5-second initial calibration where user sits in best posture to establish personal baseline.
+**Calibration:** 5-second initial calibration where user stands in best posture to establish personal baseline. This captures the "ideal" outline.
 
 **DB persistence:** Scores saved every ~1 second (every 15th frame) to avoid DB overload while maintaining useful history.
+
+---
+
+## Live Analysis UX — Dual Outline Overlay
+
+The user stands in front of their webcam. The live view renders two outlines on the canvas:
+
+1. **Actual outline (dynamic):** Drawn from real-time MediaPipe landmarks — shows the user's current posture as a body outline/skeleton. Color-coded by score (green → red).
+2. **Ideal outline (reference):** A semi-transparent "ghost" outline captured during the calibration step, representing the user's best posture. Stays fixed as the target.
+
+The user can see in real-time how their current posture deviates from their ideal. Where body segments diverge from the ideal, the gap is visually highlighted (e.g. red shading or arrows). The score reflects how closely the actual outline matches the ideal.
+
+**Server sends back:** landmarks + ideal landmarks (from calibration) + per-component scores, so the frontend can render both outlines and the deviation indicators.
 
 ---
 
@@ -144,7 +157,7 @@ Uses **MediaPipe Pose** landmarks from a frontal webcam view. Four component sco
 | Login | `/login` | No | JWT login form |
 | Register | `/register` | No | Registration form |
 | Dashboard | `/dashboard` | Yes | Score gauge, 7-day trend, recent sessions, recommended exercises |
-| Live Analysis | `/analyze` | Yes | Webcam feed + skeleton overlay + real-time score + alerts |
+| Live Analysis | `/analyze` | Yes | Dual-outline overlay: user's actual posture outline + ideal posture outline, real-time score |
 | History | `/history` | Yes | Score charts (Chart.js), session list, progress metrics |
 | Exercise Library | `/exercises` | Yes | Filterable exercise grid |
 | Exercise Detail | `/exercises/:id` | Yes | Instructions, video, "mark complete" |
@@ -188,37 +201,38 @@ Uses **MediaPipe Pose** landmarks from a frontal webcam view. Four component sco
 
 ## Implementation Phases
 
-### Phase 1: Backend Foundation + Auth (files: settings.py, accounts/*, asgi.py)
-1. Init git repo, create `.gitignore`
-2. Create Django project + all 4 apps
-3. Configure settings: DRF, SimpleJWT, Channels, CORS, ASGI
-4. Write all database models, run migrations
-5. Implement auth endpoints (register, login, refresh, profile)
-6. Set up `docker-compose.yml` (PostgreSQL + Redis)
-7. Set up `requirements.txt`
+### Phase 1: Backend Foundation + Auth ✅ COMPLETE
+- Commit `0115209` — 48 files, 1507 lines
+- All 12 REST endpoints smoke tested and passing
+- Auth (register, login, refresh, profile), stub views, Docker Compose, ASGI
 
-### Phase 2: Posture Analysis Engine (files: scoring.py, landmark_utils.py, consumers.py, routing.py, jwt_websocket.py)
-1. Implement `PostureScorer` class with MediaPipe + 4 component score calculations
-2. Implement landmark utility helpers
-3. Build WebSocket consumer (frame receive → analyze → respond)
-4. Build JWT WebSocket auth middleware
-5. Configure ASGI routing (HTTP + WebSocket)
-6. Implement REST endpoints for session history and stats
+### Phase 2: Posture Analysis Engine ✅ COMPLETE
+- MediaPipe PoseLandmarker (Tasks API v0.10.32) with lite model
+- `PostureScorer` class: 4-component weighted scoring (head 30%, shoulder levelness 25%, rounding 25%, spine 20%)
+- Full WebSocket consumer: session lifecycle, calibration flow (45 frames averaged), frame analysis, DB persistence every 15 frames
+- `landmark_utils.py`: decode base64 frames, extract/serialize landmarks
+- Calibration-based scoring: compares current pose against user's ideal baseline
+- Dual landmark response: current + ideal landmarks sent to frontend for overlay
+- StatsView updated to use TruncDate (replaced deprecated .extra())
 
-### Phase 3: Frontend + Live Analysis (files: all frontend/src/*)
-1. Scaffold Vue 3 + Vuetify 3 + Vite project
-2. Set up Axios with JWT interceptors, Pinia stores, Vue Router + auth guards
-3. Build auth views (login, register)
-4. Implement `useWebcam` composable (camera access, frame capture)
-5. Implement `usePostureSocket` composable (WebSocket lifecycle, throttled frame sending)
-6. Build `LiveAnalysisView` with webcam feed, skeleton overlay, score gauge, posture alerts
+### Phase 3: Frontend + Live Analysis ✅ COMPLETE
+- 16 source files, ~1,430 lines
+- Vue 3 + Vuetify 3 + Vite + Pinia + Vue Router
+- Axios with JWT interceptors (auto-refresh on 401)
+- Auth views (login, register) with form validation
+- `useWebcam` composable: camera access, base64 JPEG frame capture
+- `usePostureSocket` composable: WebSocket lifecycle, throttled frame sending at 15fps
+- `LiveAnalysisView`: dual skeleton overlay (current + ideal ghost), real-time score gauge, per-component breakdown, calibration flow, session summary
+- App shell: Vuetify app bar + nav drawer, auth-aware routing with guards
+- Additional views: Landing, Dashboard, History, Exercises
 
-### Phase 4: Exercise Recommendations (files: exercises/*, recommender.py, seed_exercises.py)
-1. Build recommendation engine (maps detected issues → exercises)
-2. Implement exercise REST endpoints
-3. Create seed command with 30-40 exercises
-4. Build exercise library view, cards, detail view
-5. Integrate recommendations into dashboard + end-of-session summary
+### Phase 4: Exercise Recommendations ✅ COMPLETE
+- `recommender.py`: analyzes user's last 5 sessions, finds weak components (<70), maps to target exercises prioritized by severity, falls back to general exercises
+- `seed_exercises.py`: management command with 36 exercises across 4 categories (Stretching, Strengthening, Mobility, Awareness) and 5 target issues (forward_head ×8, shoulder_level ×6, shoulder_round ×8, spine_align ×8, general ×6). Supports `--clear` flag.
+- Updated `RecommendedExercisesView` with real recommender logic, added `ExerciseLogCreateView` + `ExerciseLogListView`, added category filter to exercise list
+- Frontend `ExercisesView`: 3-column filters (target issue, difficulty, category), recommended section at top, detail dialog with instructions + "Mark Complete" button
+- Dashboard: recommended exercises card (top 3 targeted exercises)
+- LiveAnalysisView: shows up to 4 recommended exercises after session ends
 
 ### Phase 5: History & Analytics Dashboard (files: history views, ScoreChart.vue, posture/views.py stats endpoint)
 1. Implement stats aggregation endpoint
