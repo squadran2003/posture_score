@@ -8,7 +8,7 @@ def healthcheck(request):
 
 
 urlpatterns = [
-    path("healthz/", healthcheck),
+    path("healthz", healthcheck),
     path("admin/", admin.site.urls),
     path("api/auth/", include("accounts.urls")),
     path("api/posture/", include("posture.urls")),

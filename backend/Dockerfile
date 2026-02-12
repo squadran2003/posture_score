@@ -10,10 +10,15 @@ RUN mkdir -p /models && \
 # --- Runtime stage ---
 FROM python:3.11-slim
 
-# System deps required by mediapipe / opencv
+# System deps required by mediapipe / opencv-headless
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
     libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    libgomp1 \
+    libusb-1.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -29,7 +34,6 @@ COPY --from=builder /models/pose_landmarker_lite.task /app/models/pose_landmarke
 # Collect static files
 RUN DJANGO_SECRET_KEY=build-placeholder python manage.py collectstatic --noinput
 
-COPY start.sh .
 RUN chmod +x start.sh
 
 CMD ["./start.sh"]
