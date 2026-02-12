@@ -25,6 +25,7 @@ import os
 User = get_user_model()
 u = User.objects.get(username=os.environ['DJANGO_SUPERUSER_USERNAME'])
 u.set_password(os.environ['DJANGO_SUPERUSER_PASSWORD'])
+u.is_superuser = True
 u.save()
 print('Superuser password updated.')
 "
