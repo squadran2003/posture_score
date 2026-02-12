@@ -8,7 +8,7 @@ build/
 .venv/
 venv/
 env/
-
+plan.md
 # Django
 *.sqlite3
 db.sqlite3
@@ -34,5 +34,9 @@ Thumbs.db
 node_modules/
 frontend/dist/
 
+# ML models (large binaries)
+backend/models/*.task
+
 # Docker
 *.log
+*.md

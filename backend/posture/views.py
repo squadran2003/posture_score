@@ -1,4 +1,5 @@
 from django.db.models import Avg
+from django.db.models.functions import TruncDate
 from django.utils import timezone
 from rest_framework import generics
 from rest_framework.response import Response
@@ -38,7 +39,7 @@ class StatsView(APIView):
 
         stats = sessions.aggregate(avg_score=Avg("average_score"))
         daily_scores = (
-            sessions.extra(select={"day": "DATE(started_at)"})
+            sessions.annotate(day=TruncDate("started_at"))
             .values("day")
             .annotate(avg=Avg("average_score"))
             .order_by("day")

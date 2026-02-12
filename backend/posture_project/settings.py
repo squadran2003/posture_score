@@ -2,6 +2,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get(
@@ -66,14 +68,10 @@ ASGI_APPLICATION = "posture_project.asgi.application"
 
 # Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB", "posture_score"),
-        "USER": os.environ.get("POSTGRES_USER", "posture_user"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "posture_pass"),
-        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
-        "PORT": os.environ.get("POSTGRES_PORT", "5433"),
-    }
+    "default": dj_database_url.config(
+        default="postgres://posture_user:posture_pass@localhost:5433/posture_score",
+        conn_max_age=600,
+    )
 }
 
 # Channel layers (Redis)
