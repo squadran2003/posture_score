@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "=== PostureScore backend starting ==="
+PORT=80
 echo "PORT=$PORT"
 
 # Run migrations (retry once if DB isn't ready yet)
