@@ -30,5 +30,9 @@ u.save()
 print('Superuser password updated.')
 "
 
+# Seed exercises (idempotent — only creates missing exercises)
+echo "Seeding exercises..."
+python manage.py seed_exercises
+
 echo "Starting Daphne on 0.0.0.0:${PORT:-8000}..."
 exec daphne -b 0.0.0.0 -p ${PORT:-8000} posture_project.asgi:application
