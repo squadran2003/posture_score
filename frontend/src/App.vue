@@ -6,11 +6,14 @@
         @click="drawer = !drawer"
       />
       <v-app-bar-title>
-        <router-link to="/" class="text-white text-decoration-none">
+        <router-link to="/" class="text-decoration-none" style="color: inherit">
           PostureScore
         </router-link>
       </v-app-bar-title>
       <v-spacer />
+      <v-btn icon @click="toggleTheme">
+        <v-icon>{{ isDark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+      </v-btn>
       <template v-if="authStore.isAuthenticated">
         <v-btn to="/analyze" variant="text">Analyze</v-btn>
         <v-btn icon @click="handleLogout">
@@ -59,13 +62,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useTheme } from 'vuetify'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const theme = useTheme()
 const drawer = ref(false)
+
+// Initialize theme: localStorage > system preference > light
+const THEME_KEY = 'posture-score-theme'
+const saved = localStorage.getItem(THEME_KEY)
+if (saved === 'dark' || saved === 'light') {
+  theme.global.name.value = saved
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  theme.global.name.value = 'dark'
+}
+
+const isDark = computed(() => theme.global.name.value === 'dark')
+
+function toggleTheme() {
+  const next = isDark.value ? 'light' : 'dark'
+  theme.global.name.value = next
+  localStorage.setItem(THEME_KEY, next)
+}
 
 function handleLogout() {
   authStore.logout()

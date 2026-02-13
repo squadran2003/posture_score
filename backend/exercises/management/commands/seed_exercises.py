@@ -21,6 +21,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 60,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Chin Tucks
     },
     {
         "name": "Neck Flexor Stretch",
@@ -31,6 +32,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 90,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Neck Flexor Stretch
     },
     {
         "name": "Suboccipital Release",
@@ -40,6 +42,7 @@ EXERCISES = [
         "target_issue": "forward_head",
         "difficulty": "beginner",
         "duration_seconds": 120,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Suboccipital Release
     },
     {
         "name": "Deep Neck Flexor Activation",
@@ -50,6 +53,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 120,
         "repetitions": 8,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Deep Neck Flexor Activation
     },
     {
         "name": "Wall Chin Tucks",
@@ -60,6 +64,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 90,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Wall Chin Tucks
     },
     {
         "name": "Cervical Retraction with Band",
@@ -70,6 +75,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 120,
         "repetitions": 12,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Cervical Retraction with Band
     },
     {
         "name": "Upper Trapezius Stretch",
@@ -80,6 +86,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 90,
         "repetitions": 2,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Upper Trapezius Stretch
     },
     {
         "name": "Prone Cervical Retraction",
@@ -90,6 +97,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 90,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Prone Cervical Retraction
     },
     # ── Shoulder Levelness (6 exercises) ────────────────────
     {
@@ -101,6 +109,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Side Neck Stretch
     },
     {
         "name": "Lateral Shoulder Raises",
@@ -111,6 +120,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 12,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Lateral Shoulder Raises
     },
     {
         "name": "Mirror Shoulder Check",
@@ -121,6 +131,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 30,
         "repetitions": 5,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Mirror Shoulder Check
     },
     {
         "name": "Unilateral Farmer's Carry",
@@ -131,6 +142,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Unilateral Farmer's Carry
     },
     {
         "name": "Side-Lying Thoracic Rotation",
@@ -141,6 +153,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Side-Lying Thoracic Rotation
     },
     {
         "name": "Shoulder Shrugs and Drops",
@@ -151,6 +164,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 60,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Shoulder Shrugs and Drops
     },
     # ── Shoulder Rounding (8 exercises) ─────────────────────
     {
@@ -162,6 +176,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Doorway Pec Stretch
     },
     {
         "name": "Band Pull-Aparts",
@@ -172,6 +187,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 90,
         "repetitions": 15,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Band Pull-Aparts
     },
     {
         "name": "Prone Y-T-W Raises",
@@ -182,6 +198,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 8,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Prone Y-T-W Raises
     },
     {
         "name": "Wall Angels",
@@ -192,6 +209,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Wall Angels
     },
     {
         "name": "Seated Row",
@@ -202,6 +220,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 12,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Seated Row
     },
     {
         "name": "Thoracic Extension Over Roller",
@@ -211,6 +230,7 @@ EXERCISES = [
         "target_issue": "shoulder_round",
         "difficulty": "beginner",
         "duration_seconds": 120,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Thoracic Extension Over Roller
     },
     {
         "name": "Face Pulls",
@@ -221,6 +241,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 15,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Face Pulls
     },
     {
         "name": "Chest Opener Stretch",
@@ -231,6 +252,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 90,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Chest Opener Stretch
     },
     # ── Spine Alignment (8 exercises) ───────────────────────
     {
@@ -242,6 +264,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 90,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Cat-Cow Stretch
     },
     {
         "name": "Bird-Dog",
@@ -252,6 +275,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Bird-Dog
     },
     {
         "name": "Dead Bug",
@@ -262,6 +286,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Dead Bug
     },
     {
         "name": "Plank",
@@ -272,6 +297,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Plank
     },
     {
         "name": "Side Plank",
@@ -282,6 +308,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 180,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Side Plank
     },
     {
         "name": "Seated Spinal Twist",
@@ -292,6 +319,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 60,
         "repetitions": 2,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Seated Spinal Twist
     },
     {
         "name": "Pallof Press",
@@ -302,6 +330,7 @@ EXERCISES = [
         "difficulty": "intermediate",
         "duration_seconds": 120,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Pallof Press
     },
     {
         "name": "Wall Sit with Alignment",
@@ -312,6 +341,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Wall Sit with Alignment
     },
     # ── General Posture (6 exercises) ───────────────────────
     {
@@ -323,6 +353,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 60,
         "repetitions": 5,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Posture Reset Drill
     },
     {
         "name": "Brugger's Relief Position",
@@ -333,6 +364,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 30,
         "repetitions": 10,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Brugger's Relief Position
     },
     {
         "name": "Full Body Stretch Routine",
@@ -342,6 +374,7 @@ EXERCISES = [
         "target_issue": "general",
         "difficulty": "beginner",
         "duration_seconds": 300,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Full Body Stretch Routine
     },
     {
         "name": "Glute Bridge",
@@ -352,6 +385,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 120,
         "repetitions": 15,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Glute Bridge
     },
     {
         "name": "Hip Flexor Stretch",
@@ -362,6 +396,7 @@ EXERCISES = [
         "difficulty": "beginner",
         "duration_seconds": 180,
         "repetitions": 3,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Hip Flexor Stretch
     },
     {
         "name": "Posture Timer Challenge",
@@ -371,6 +406,7 @@ EXERCISES = [
         "target_issue": "general",
         "difficulty": "beginner",
         "duration_seconds": 300,
+        "video_url": "https://www.youtube.com/embed/PASTE_ID_HERE",  # Posture Timer Challenge
     },
 ]
 
@@ -406,7 +442,12 @@ class Command(BaseCommand):
         created_count = 0
         skipped_count = 0
         for ex_data in EXERCISES:
+            ex_data = ex_data.copy()
             category = cat_map[ex_data.pop("category")]
+            # Skip placeholder video URLs
+            video_url = ex_data.get("video_url", "")
+            if "PASTE_ID_HERE" in video_url:
+                ex_data["video_url"] = ""
             _, created = Exercise.objects.get_or_create(
                 name=ex_data["name"],
                 defaults={**ex_data, "category": category},

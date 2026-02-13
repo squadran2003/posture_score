@@ -113,6 +113,14 @@
           {{ targetLabel(selectedExercise.target_issue) }}
         </v-card-subtitle>
         <v-card-text>
+          <div v-if="selectedExercise.video_url" class="video-embed mb-4">
+            <iframe
+              :src="selectedExercise.video_url"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          </div>
           <p class="mb-4">{{ selectedExercise.description }}</p>
           <h4 class="text-subtitle-1 mb-2">Instructions</h4>
           <p class="text-body-2">{{ selectedExercise.instructions }}</p>
@@ -252,3 +260,19 @@ onMounted(() => {
   fetchRecommended()
 })
 </script>
+
+<style scoped>
+.video-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.video-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+</style>
