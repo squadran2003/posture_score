@@ -9,15 +9,37 @@
       <!-- Left: Camera Feed + Overlay -->
       <v-col cols="12" md="8">
         <v-card elevation="4" class="overflow-hidden">
-          <div class="video-container" ref="containerRef">
-            <video
-              ref="videoEl"
-              autoplay
-              playsinline
-              muted
-              class="video-feed"
-            />
-            <canvas ref="overlayCanvas" class="overlay-canvas" />
+          <!-- Zoom Controls -->
+          <div class="zoom-controls">
+            <v-btn icon size="small" variant="tonal" @click="zoomIn" :disabled="zoom >= 3">
+              <v-icon>mdi-magnify-plus</v-icon>
+            </v-btn>
+            <span class="zoom-label text-body-2">{{ Math.round(zoom * 100) }}%</span>
+            <v-btn icon size="small" variant="tonal" @click="zoomOut" :disabled="zoom <= 1">
+              <v-icon>mdi-magnify-minus</v-icon>
+            </v-btn>
+            <v-btn v-if="zoom > 1" icon size="small" variant="tonal" @click="zoomReset">
+              <v-icon>mdi-magnify-close</v-icon>
+            </v-btn>
+          </div>
+          <div
+            class="video-container"
+            ref="containerRef"
+            :style="{ overflow: zoom > 1 ? 'auto' : 'hidden' }"
+          >
+            <div
+              class="video-zoom-wrapper"
+              :style="{ transform: `scale(${zoom})`, transformOrigin: 'center center' }"
+            >
+              <video
+                ref="videoEl"
+                autoplay
+                playsinline
+                muted
+                class="video-feed"
+              />
+              <canvas ref="overlayCanvas" class="overlay-canvas" />
+            </div>
 
             <!-- Calibration overlay -->
             <div v-if="posture.calibrating.value" class="calibration-overlay">
@@ -183,6 +205,7 @@ const posture = usePostureSocket()
 const videoEl = ref(null)
 const overlayCanvas = ref(null)
 const containerRef = ref(null)
+const zoom = ref(1)
 const stage = ref('idle') // idle | waiting_calibration | calibrating | analyzing | done
 const recommendedExercises = ref([])
 
@@ -235,6 +258,10 @@ const CONNECTIONS = [
   ['right_shoulder', 'right_hip'],
   ['left_hip', 'right_hip'],
 ]
+
+function zoomIn() { zoom.value = Math.min(zoom.value + 0.25, 3) }
+function zoomOut() { zoom.value = Math.max(zoom.value - 0.25, 1) }
+function zoomReset() { zoom.value = 1 }
 
 function getBarColor(score) {
   if (score >= 85) return 'success'
@@ -400,10 +427,31 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.zoom-label {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 500;
+}
+
 .video-container {
   position: relative;
   width: 100%;
+  max-height: 70vh;
   background: #000;
+}
+
+.video-zoom-wrapper {
+  position: relative;
+  width: 100%;
+  transition: transform 0.2s ease;
 }
 
 .video-feed {

@@ -52,6 +52,13 @@
           title="Exercises"
           to="/exercises"
         />
+        <v-divider class="my-2" />
+        <v-list-item
+          prepend-icon="mdi-logout"
+          title="Logout"
+          @click="handleLogout"
+          base-color="error"
+        />
       </v-list>
     </v-navigation-drawer>
 

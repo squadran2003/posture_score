@@ -5,13 +5,15 @@ import api from '@/api'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const loading = ref(false)
+  const token = ref(localStorage.getItem('access_token'))
 
-  const isAuthenticated = computed(() => !!localStorage.getItem('access_token'))
+  const isAuthenticated = computed(() => !!token.value)
 
   async function login(username, password) {
     const { data } = await api.post('/auth/login/', { username, password })
     localStorage.setItem('access_token', data.access)
     localStorage.setItem('refresh_token', data.refresh)
+    token.value = data.access
     await fetchProfile()
   }
 
@@ -32,6 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
   function logout() {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')
+    token.value = null
     user.value = null
   }
 
