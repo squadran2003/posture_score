@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-4">
+  <v-container fluid class="pa-4 analysis-page">
     <!-- Error Alert -->
     <v-alert v-if="socketError || webcamError" type="error" class="mb-4" closable>
       {{ socketError || webcamError }}
@@ -8,7 +8,7 @@
     <v-row>
       <!-- Left: Camera Feed + Overlay -->
       <v-col cols="12" md="8">
-        <v-card elevation="4" class="overflow-hidden">
+        <v-card elevation="4" class="overflow-hidden video-card">
           <!-- Zoom Controls -->
           <div class="zoom-controls">
             <v-btn icon size="small" variant="tonal" @click="zoomIn" :disabled="zoom >= 3">
@@ -64,7 +64,7 @@
           </div>
 
           <!-- Controls -->
-          <v-card-actions class="justify-center pa-4">
+          <v-card-actions class="justify-center pa-4" style="flex-shrink: 0">
             <template v-if="stage === 'idle'">
               <v-btn color="primary" size="large" @click="begin" prepend-icon="mdi-play">
                 Start Session
@@ -427,12 +427,24 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.analysis-page {
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px - 32px); /* viewport minus app bar minus padding */
+}
+
 .zoom-controls {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
 }
 
 .zoom-label {
@@ -444,20 +456,26 @@ onUnmounted(() => {
 .video-container {
   position: relative;
   width: 100%;
-  max-height: 70vh;
+  flex: 1;
+  min-height: 0;
   background: #000;
 }
 
 .video-zoom-wrapper {
   position: relative;
   width: 100%;
+  height: 100%;
   transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .video-feed {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   transform: scaleX(-1);
 }
 
@@ -469,6 +487,12 @@ onUnmounted(() => {
   height: 100%;
   pointer-events: none;
   transform: scaleX(-1);
+}
+
+@media (max-width: 960px) {
+  .video-card {
+    height: calc(100vh - 64px - 16px);
+  }
 }
 
 .calibration-overlay {
